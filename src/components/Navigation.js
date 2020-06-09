@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import SideNavigation from './SideNavigation';
 import TopNavigation from './TopNavigation';
 
@@ -13,11 +13,11 @@ class Navigation extends React.Component {
     }
     componentDidMount() {
         this.handleResize();
-        window.addEventListener("resize", this.handleResize);
+        window.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.handleResize);
+        window.removeEventListener('resize', this.handleResize);
     }
 
     handleResize = () =>
@@ -25,10 +25,9 @@ class Navigation extends React.Component {
             windowWidth: window.innerWidth
         });
 
-
     render() {
         return (
-            <div className="fixed-sn indigo-skin">
+            <div className='fixed-sn indigo-skin'>
                 <SideNavigation/>
                 <TopNavigation/>
             </div>

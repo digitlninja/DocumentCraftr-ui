@@ -14,52 +14,34 @@ class SideNavigation extends React.Component {
             sideNavLeft: false,
         };
     }
-
-    // render MDBSideNav Link
-    rSNL(to, text) {
-        return (
-            <MDBSideNavLink to={to} onClick={this.props.onLinkClick}>
-                {text}
-            </MDBSideNavLink>
-        );
-    }
-
-    sidenavToggle = (sidenavId) => () => {
-        const sidenavNr = `sideNav${sidenavId}`;
-        this.setState({
-            [sidenavNr]: !this.state[sidenavNr]
-        });
-    };
-
     render() {
         return (
             <MDBSideNav slim
                 fixed
                 triggerOpening={this.state.sideNavLeft}
-                className="keenious-skin"
+                className='keenious-skin'
             >
                 <li>
-                    <div className="logo-wrapper sn-ad-avatar-wrapper">
-                        <a href="#!">
-                            <img alt="" src={logo} className="rounded-circle"/>
+                    <div className='logo-wrapper sn-ad-avatar-wrapper'>
+                        <a href='#!'>
+                            <img alt='' src={logo} className='rounded-circle'/>
                             <span
                                 style={{textTransform: 'uppercase', letterSpacing: '2px', fontStretch: 'expanded', fontWeight: '500'}}>keenious</span>
                         </a>
                     </div>
                 </li>
-
                 <MDBSideNavNav>
 
-                    <MDBSideNavCat name="Documents" id="submit-blog" icon="file-alt">
-                        <MDBSideNavLink to="/documents/view" topLevel>
+                    <MDBSideNavCat name='Documents' id='submit-blog' icon='file-alt'>
+                        <MDBSideNavLink to='/documents/view' topLevel>
                             View All
                         </MDBSideNavLink>
-                        <MDBSideNavLink to="/documents/create" topLevel>
+                        <MDBSideNavLink to='/documents/create' topLevel>
                             Create
                         </MDBSideNavLink>
                     </MDBSideNavCat>
-                    <MDBSideNavCat name="Resources" id="submit-blog" fab icon="scroll">
-                        <MDBSideNavLink to="/resources/view" topLevel>
+                    <MDBSideNavCat name='Resources' id='submit-blog' icon='scroll'>
+                        <MDBSideNavLink to='/resources/view' topLevel>
                             View All
                         </MDBSideNavLink>
                     </MDBSideNavCat>

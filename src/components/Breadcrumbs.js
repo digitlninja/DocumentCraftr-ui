@@ -2,11 +2,10 @@ import React, {useEffect, useState} from "react";
 import {MDBBreadcrumb, MDBBreadcrumbItem} from "mdbreact";
 
 const Breadcrumbs = ({route}) => {
-
     const [segments, setSegments] = useState([]);
 
     // Convert a route to Capitalized segments
-    const capitalizeSegments = () => {
+    const routeToCapitalizeSegments = () => {
         const capitalizedSegments = [];
             route.split('/').forEach((segment) => {
             if (segment) {
@@ -17,7 +16,8 @@ const Breadcrumbs = ({route}) => {
     };
 
     useEffect(() => {
-        capitalizeSegments();
+        routeToCapitalizeSegments();
+    // eslint-disable-next-line
     },[]);
 
     return (

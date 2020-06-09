@@ -1,5 +1,6 @@
-import React, {useState} from "react";
-import {useLocation} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useHistory, useLocation, useParams} from 'react-router-dom';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {
     MDBContainer,
     MDBRow,
@@ -10,112 +11,107 @@ import {
     MDBBtn,
     MDBTypography,
     MDBCollapse,
-    MDBCollapseHeader
+    MDBCollapseHeader, MDBChip
 } from 'mdbreact';
 import Breadcrumbs from '../../components/Breadcrumbs';
+import {fetchDocument} from '../../redux/documents/document-actions';
+import ViewDocumentResources from '../Resources/ViewDocumentResources';
 
 const ViewDocument = () => {
-    const [collapseId, setCollapseId] = useState("collapse1");
+    const [collapseId, setCollapseId] = useState('collapse1');
+    const history = useHistory();
+    const {id} = useParams();
+    const dispatch = useDispatch();
+
+    const {
+        document: {
+            _id,
+            title,
+            body,
+            resources,
+            createdAt,
+            updatedAt
+        }
+    } = useSelector(state => ({document: state.documentData.documents}), shallowEqual);
+
+    useEffect(() => {
+        (async () => {
+            await dispatch(fetchDocument(id));
+        })();
+
+        // eslint-disable-next-line
+    }, []);
+
     const toggleCollapse = (collapseId) => {
         setCollapseId((prevCollapseId) => {
-            return prevCollapseId === "" ? collapseId : ""
+            return prevCollapseId === '' ? collapseId : '';
         });
     };
-
 
     const {pathname} = useLocation();
     return (
         <MDBContainer fluid>
             <Breadcrumbs route={pathname}/>
-            <MDBCol md='12' className="px-0">
+            <MDBCol md='12' className='px-0'>
                 <MDBCard>
-                    <MDBCardBody className='mx-4 my-5'>
-                        <MDBRow>
-                            <MDBCol md='10' className="float-left">
-                                <h3 className='orange-text-lighten mb-5'>
+                    <MDBCardBody className='mx-4 my-4'>
+                        <MDBRow className='mb-4'>
+                            <MDBCol md='10' className='float-left'>
+                                <h3 className='orange-text-lighten mb-4'>
                                     <strong>View Document</strong>
                                 </h3>
+                                <hr/>
+                                <MDBChip size='sm' bgColor='purple lighten-4' text='purple' waves
+                                         className='float-left'>
+                                    Created: ({new Date(createdAt).toLocaleDateString()})
+                                </MDBChip>
+                                <MDBChip size='sm' bgColor='purple lighten-4' text='purple' waves
+                                         className='float-left'>
+                                    Updated: ({updatedAt && (<>{new Date(updatedAt).toLocaleDateString()}</>)})
+                                </MDBChip>
                             </MDBCol>
                             <MDBCol md='2'>
-                                <MDBBtn className='z-depth-1' color='success' outline rounded block href="/documents/edit/1">
+                                <MDBBtn className='z-depth-1' color='success' outline rounded block
+                                        onClick={() => history.push(`/documents/edit/${_id}`)}>
                                     Open In Editor
                                 </MDBBtn>
                             </MDBCol>
                         </MDBRow>
-                        <MDBTypography tag="h2" className="mb-4">This is pretty pimp man. Well fkin
-                            done!</MDBTypography>
-                        <MDBTypography tag="p">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus architecto blanditiis
-                            consectetur eligendi fugiat incidunt ipsa ipsam labore modi officiis possimus qui
-                            recusandae reiciendis sit, soluta unde veniam, vero
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus architecto blanditiis
-                            consectetur eligendi fugiat incidunt ipsa ipsam labore modi officiis possimus qui
-                            recusandae reiciendis sit, soluta unde veniam, vero Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. A accusamus architecto blanditiis
-                            consectetur eligendi fugiat incidunt ipsa ipsam labore modi officiis possimus qui
-                            recusandae reiciendis sit, soluta unde veniam, vero Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. A accusamus architecto blanditiis
-                            consectetur eligendi fugiat incidunt ipsa ipsam labore modi officiis possimus qui
-                            recusandae reiciendis sit, soluta unde veniam, vero Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. A accusamus architecto blanditiis
-                            consectetur eligendi fugiat incidunt ipsa ipsam labore modi officiis possimus qui
-                            recusandae reiciendis sit, soluta unde veniam, vero Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. A accusamus architecto blanditiis
-                            consectetur eligendi fugiat incidunt ipsa ipsam labore modi officiis possimus qui
-                            recusandae reiciendis sit, soluta unde veniam, vero!!
-                        </MDBTypography>
-                        <MDBTypography tag="p">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus architecto blanditiis
-                            consectetur eligendi fugiat incidunt ipsa ipsam labore modi officiis possimus qui
-                            recusandae reiciendis sit, soluta unde veniam, vero
-                            recusandae reiciendis sit, soluta unde veniam, vero!!
-                        </MDBTypography>
-                        <MDBTypography tag="p">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus architecto blanditiis
-                            recusandae reiciendis sit, soluta unde veniam, vero!!
-                        </MDBTypography>
-                        <MDBTypography tag="p">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus architecto blanditiis
-                            recusandae reiciendis sit, soluta unde veniam, vero!!
+                        <MDBTypography tag='h2' className='mb-4'>{title}</MDBTypography>
+                        <MDBTypography tag='p'>
+                            {body}
                         </MDBTypography>
                     </MDBCardBody>
 
                 </MDBCard>
             </MDBCol>
-            <MDBCol md='12' className="px-0">
+            <MDBCol md='12' className='px-0'>
                 <MDBCard>
 
                     <MDBCard
-                        style={{ backgroundColor: "rgba(0,0,0,.03)" }}
-                        className="mx-0"
+                        style={{backgroundColor: 'rgba(0,0,0,.03)'}}
+                        className='mx-0'
                     >
-                        <MDBCollapseHeader className='footer py-2 mdb-color lighten-3' onClick={() => toggleCollapse("collapse1")}>
-                                <MDBRow className='d-flex justify-content-center'>
-                                    <MDBTypography tag="h3" className='white-text pr-3 mb-2'>
-                                        Resources
-                                    </MDBTypography>
-                                    <MDBIcon
-                                        icon={
-                                            collapseId === "collapse1"
-                                                ? "angle-up"
-                                                : "angle-down"
-                                        }
-                                        className="white-text mt-2"
-                                        style={{ float: "right" }}
-                                    />
-                                </MDBRow>
+                        <MDBCollapseHeader className='footer py-2 mdb-color lighten-3'
+                                           onClick={() => toggleCollapse('collapse1')}>
+                            <MDBRow className='d-flex justify-content-center'>
+                                <MDBTypography tag='h3' className='white-text pr-3 mb-2'>
+                                    Resources
+                                </MDBTypography>
+                                <MDBIcon
+                                    icon={
+                                        collapseId === 'collapse1'
+                                            ? 'angle-up'
+                                            : 'angle-down'
+                                    }
+                                    className='white-text mt-2'
+                                    style={{float: 'right'}}
+                                />
+                            </MDBRow>
 
                         </MDBCollapseHeader>
-                        <MDBCollapse id="collapse1" className="resources-accordian" isOpen={collapseId}>
-                            {[1, 2, 3, 4, 5, 6].map((resource) =>
-                                <MDBCardBody className={"col-md-4 float-left p-2 mb-1 grey lighten-2 border-white border-right"}>
-                                    <MDBTypography className="blue-text p-1" tag="h4" style={{fontSize: '1rem' }}>
-                                        Resource Title {resource} {resource > 1
-                                        ? (<MDBIcon className="float-right" icon="link"/>)
-                                        : (<MDBIcon className="float-right" icon="file"/>)}
-                                    </MDBTypography>
-                                </MDBCardBody>
-                            )}
+                        <MDBCollapse id='collapse1' className='resources-accordian' isOpen={collapseId}>
+                            <ViewDocumentResources resources={resources}/>
                         </MDBCollapse>
                     </MDBCard>
                 </MDBCard>

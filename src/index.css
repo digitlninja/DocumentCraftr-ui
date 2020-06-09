@@ -229,12 +229,19 @@ main {
   }
 }
 
+.dashboard-margin-compensation {
+  margin-right: 270px;
+}
+
 .collapse div:nth-child(3n) {
   border: none !important;
 }
 
 .keenious-purple {
   background: rgba(55, 47, 224, 0.9);
+}
+.keenious-purple-text {
+  color: rgba(55, 47, 224, 0.9) !important;
 }
 
 .keenious-skin {
@@ -265,4 +272,8 @@ main {
   color: #bdbdbd;
   outline: none;
   transition: border .24s ease-in-out;
+}
+
+.m0-auto {
+  margin: 0 auto;
 }

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import {
     MDBNavbar,
     MDBNavbarNav,
     MDBNavItem,
     MDBIcon,
-} from "mdbreact";
+} from 'mdbreact';
 
 class TopNavigation extends React.Component {
     constructor(props) {
@@ -17,11 +17,11 @@ class TopNavigation extends React.Component {
 
     componentDidMount() {
         this.handleResize();
-        window.addEventListener("resize", this.handleResize);
+        window.addEventListener('resize', this.handleResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.handleResize);
+        window.removeEventListener('resize', this.handleResize);
     }
 
     handleResize = () =>
@@ -32,19 +32,19 @@ class TopNavigation extends React.Component {
     render() {
         const navStyle = {
             paddingLeft:
-                this.state.windowWidth > this.state.breakWidth ? "210px" : "16px"
+                this.state.windowWidth > this.state.breakWidth ? '210px' : '16px'
         };
 
         const specialCaseNavbarStyles = {
-            WebkitBoxOrient: "horizontal",
-            flexDirection: "row"
+            WebkitBoxOrient: 'horizontal',
+            flexDirection: 'row'
         };
 
         return (
-            <MDBNavbar style={navStyle} double expand="md" fixed="top" scrolling>
+            <MDBNavbar style={navStyle} double expand='md' fixed='top' scrolling>
                 <MDBNavbarNav right style={specialCaseNavbarStyles}>
                     <MDBNavItem>
-                        <MDBIcon icon="user" className="d-inline-inline"/>
+                        <MDBIcon icon='user' className='d-inline-inline'/>
                     </MDBNavItem>
                 </MDBNavbarNav>
             </MDBNavbar>

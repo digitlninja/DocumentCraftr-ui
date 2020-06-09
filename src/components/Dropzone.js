@@ -2,14 +2,14 @@ import React from 'react';
 import Dropzone, {useDropzone} from 'react-dropzone';
 
 const FileUpload = ({onDrop}) => {
-    const {isDragActive, getRootProps, getInputProps, isDragReject, acceptedFiles, rejectedFiles} = useDropzone({
+    const dropzone = useDropzone({
         accept: 'image/png',
         minSize: 0,
         maxSize: 2048,
     });
 
     return (
-        <div className="dropzone">
+        <div className='dropzone'>
             <Dropzone onDrop={onDrop}>
                 {({getRootProps, getInputProps, isDragActive}) => (
                     <div {...getRootProps()}>

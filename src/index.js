@@ -5,7 +5,7 @@ import 'mdbreact/dist/css/mdb.css';
 import ReactDOM from 'react-dom';
 import {
     BrowserRouter as Router,
-} from "react-router-dom";
+} from 'react-router-dom';
 
 import * as serviceWorker from './serviceWorker';
 import App from './App';
@@ -15,11 +15,9 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
 ReactDOM.render(
-    <React.StrictMode>
         <Router>
             <App/>
-        </Router>
-    </React.StrictMode>,
+        </Router>,
     document.getElementById('root')
 );
 

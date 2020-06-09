@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import {
     Switch,
     Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 import ViewDocuments from '../modules/Documents/ViewDocuments';
 import ViewDocument from '../modules/Documents/ViewDocument';
 import EditDocument from '../modules/Documents/EditDocument';
