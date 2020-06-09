@@ -1,13 +1,7 @@
 import React from 'react';
-import Dropzone, {useDropzone} from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 
 const FileUpload = ({onDrop}) => {
-    const dropzone = useDropzone({
-        accept: 'image/png',
-        minSize: 0,
-        maxSize: 2048,
-    });
-
     return (
         <div className='dropzone'>
             <Dropzone onDrop={onDrop}>
