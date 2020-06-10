@@ -41,7 +41,10 @@ const ViewDocumentResources = ({resources}) => {
                 <MDBCollapse id='collapse1' className='resources-accordian' isOpen={collapseId}>
                     {resources && resources.length ? resources.map((resource) =>
                         <MDBCardBody
-                            className={'col-md-4 float-left p-2 keenious-purple border-white border-right mb-1'} style={{height: '6rem'}}>
+                            className={'col-md-4 float-left p-2 keenious-purple border-white border-right mb-1'}
+                            style={{height: '6rem'}}
+                            key={resource._id}
+                        >
                             <MDBTypography className='white-text p-1' tag='h4' style={{fontSize: '1rem'}}>
                                 {resource.title}
                                 {resource.type === resourceTypes.url ? (
