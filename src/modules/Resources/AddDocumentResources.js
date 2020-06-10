@@ -17,6 +17,7 @@ const AddDocumentResources = ({documentId, onUpdateSuccess, onUpdateState}) => {
     const [state, setState] = useState({
         title: '',
         body: '',
+        content: '',
         type: resourceTypes.url,
         file: '',
     });
@@ -115,7 +116,6 @@ const AddDocumentResources = ({documentId, onUpdateSuccess, onUpdateState}) => {
                             What type of resource is it?
                         </h5>
                     </MDBCol>
-
                     <MDBCol md='2' className='mb-2'>
                         <MDBSwitch labelLeft='Link'
                                    labelRight='File'
@@ -136,7 +136,7 @@ const AddDocumentResources = ({documentId, onUpdateSuccess, onUpdateState}) => {
                             <MDBInput
                                 value={state.body}
                                 name='body'
-                                label='must include http://...'
+                                label='Link - must include http://...'
                                 labelClass='align-top'
                                 type='text'
                                 validate
@@ -149,12 +149,26 @@ const AddDocumentResources = ({documentId, onUpdateSuccess, onUpdateState}) => {
                     )}
                 </MDBRow>
                 {switchOn && (
-                    <>
-                        <MDBRow>
-                            <FileUpload onDrop={handleChange}/>
-                        </MDBRow>
-                    </>
+                    <MDBRow>
+                        <FileUpload onDrop={handleChange}/>
+                    </MDBRow>
                 )}
+                <MDBRow>
+                    <MDBCol md='10'>
+                        <MDBInput
+                            value={state.notes}
+                            name='notes'
+                            label='notes'
+                            labelClass='align-top'
+                            type='text'
+                            validate
+                            required
+                            containerClass='mt-0 p-0'
+                            className='mt-3'
+                            onChange={(event) => handleChange(event)}
+                        />
+                    </MDBCol>
+                </MDBRow>
             </form>
         </>
     );

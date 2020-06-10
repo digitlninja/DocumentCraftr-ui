@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useHistory, useLocation, useParams} from 'react-router-dom';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {
@@ -7,18 +7,15 @@ import {
     MDBCol,
     MDBCard,
     MDBCardBody,
-    MDBIcon,
     MDBBtn,
     MDBTypography,
-    MDBCollapse,
-    MDBCollapseHeader, MDBChip
+    MDBChip
 } from 'mdbreact';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import {fetchDocument} from '../../redux/documents/document-actions';
 import ViewDocumentResources from '../Resources/ViewDocumentResources';
 
 const ViewDocument = () => {
-    const [collapseId, setCollapseId] = useState('collapse1');
     const history = useHistory();
     const {id} = useParams();
     const dispatch = useDispatch();
@@ -41,12 +38,6 @@ const ViewDocument = () => {
 
         // eslint-disable-next-line
     }, []);
-
-    const toggleCollapse = (collapseId) => {
-        setCollapseId((prevCollapseId) => {
-            return prevCollapseId === '' ? collapseId : '';
-        });
-    };
 
     const {pathname} = useLocation();
     return (
@@ -87,33 +78,7 @@ const ViewDocument = () => {
             </MDBCol>
             <MDBCol md='12' className='px-0'>
                 <MDBCard>
-
-                    <MDBCard
-                        style={{backgroundColor: 'rgba(0,0,0,.03)'}}
-                        className='mx-0'
-                    >
-                        <MDBCollapseHeader className='footer py-2 mdb-color lighten-3'
-                                           onClick={() => toggleCollapse('collapse1')}>
-                            <MDBRow className='d-flex justify-content-center'>
-                                <MDBTypography tag='h3' className='white-text pr-3 mb-2'>
-                                    Resources
-                                </MDBTypography>
-                                <MDBIcon
-                                    icon={
-                                        collapseId === 'collapse1'
-                                            ? 'angle-up'
-                                            : 'angle-down'
-                                    }
-                                    className='white-text mt-2'
-                                    style={{float: 'right'}}
-                                />
-                            </MDBRow>
-
-                        </MDBCollapseHeader>
-                        <MDBCollapse id='collapse1' className='resources-accordian' isOpen={collapseId}>
-                            <ViewDocumentResources resources={resources}/>
-                        </MDBCollapse>
-                    </MDBCard>
+                    <ViewDocumentResources resources={resources}/>
                 </MDBCard>
             </MDBCol>
         </MDBContainer>
